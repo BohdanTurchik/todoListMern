@@ -1,2 +1,2 @@
 node_modules
-/server/consts/* .js
+server/consts
