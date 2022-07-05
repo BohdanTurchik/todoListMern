@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors';
 import bodyParser from "body-parser"
-
+import cookieParser from "cookie-parser"
 
 import connectDB from "./config/dataBase.js";
 import AppRouter from "./routes/index.js";
@@ -17,6 +17,7 @@ app.set("port", 5000);
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json({ extended:true}))
+app.use(cookieParser())
 router.init();
 
 
