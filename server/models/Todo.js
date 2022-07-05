@@ -2,12 +2,21 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const todo = Schema({
-  task:{
-    type:String,
+const todo = new Schema({
+  tasks:{
+    type:Array,
     required:true
   },
-  isDone: false
-})
+  isDone: {
+    type:mongoose.SchemaTypes.Boolean,
+    
+  },
+  id:{
+   type: mongoose.SchemaTypes.ObjectId
+  },
+  
+},
+  {versionKey: false}
+)
 
 export const Todo = mongoose.model("Todo", todo)

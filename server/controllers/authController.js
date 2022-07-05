@@ -74,7 +74,7 @@ class AuthController {
           expiresIn: "30d"
         }
       )
-      return res.json({ token, user })
+      return res.cookie("token", token).json({ token, user })
 
     } catch (e) {
       res.status(500).json({ message: "try something wrong again" })

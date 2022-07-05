@@ -7,13 +7,13 @@ class TodoService {
     return await Todo.find()
   }
   async createTask(task) {
-    console.log(task)
+    
     return await Todo.create(task)
 
   }
   async deleteTask(task) {
     console.log(task)
-    return await Todo.delete(task)
+    return await Todo.deleteOne(task)
   }
 }
 
