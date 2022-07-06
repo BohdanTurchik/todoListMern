@@ -2,6 +2,7 @@ import { Todo } from "../models/Todo.js";
 import { todoService } from "../services/TodoService.js";
 import {validateAccessToken} from "../jwt/jwtVerifive.js" 
 import mongoose from "mongoose";
+
   
 
 
@@ -44,8 +45,8 @@ class TodoController {
   }
   async deleteTodo(req, res) {
     try {
-      const { task } = req.body
-      await todoService.deleteTask({task})
+      const { i } = req.body
+      await todoService.deleteTask({i})
       res.status(200).json({message: "deleted complide"})
     } catch (e) {
       res.json(e.message)
