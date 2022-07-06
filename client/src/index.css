@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.MuiAlert-message{
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+}
