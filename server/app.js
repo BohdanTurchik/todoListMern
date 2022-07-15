@@ -9,13 +9,14 @@ import AppRouter from "./routes/index.js";
 const app = express();
 const router = new AppRouter(app);
 
+
 // Connect to MongoDB
 connectDB();
 
 // Express configuration
 app.set("port", 5000);
 app.use(bodyParser.json({ limit: "50mb" }));
-app.use(cors({ origin: "*", credentials: true }));
+app.use(cors({ origin: "*", credentials: true,optionSuccessStatus:200 }));
 app.use(express.json({ extended:true}))
 app.use(cookieParser())
 router.init();

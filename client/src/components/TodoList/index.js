@@ -9,6 +9,8 @@ import { Container } from '@mui/system';
 const TodoList = () => {
   const { request } = useAuth();
   const [todos, setTodos] = useState([])
+  const user = JSON.parse(localStorage.getItem("user"));
+
 
   useEffect(() => {
     const getTodos = async () => {
@@ -20,13 +22,33 @@ const TodoList = () => {
   }, [])
 
   const deleteTask = async (item) => {
+    const reqParam={
+      id :item,
+      idUser: user.user._id,
+    }
     console.log(item)
 
-    await request("http://localhost:5000/api/auth/del", "DELETE",)
+    await request("http://localhost:5000/api/auth/del", "DELETE", reqParam)
+  }
+
+  const updateTask = async(item)=>{
+    const reqParam = {
+      id :item.taskId,
+      idUser:user.user._id,
+      isDone: item.isDone
+    }
+    
+    await request("http://localhost:5000/api/auth/update", "PUT", reqParam)
+  }
+  const logout =  async()=>{
+    localStorage.clear()
+    await request ("http://localhost:5000/api/auth/logout", "POST")
   }
 
   return (
-    <Container maxWidth="sm"
+    <div>
+      <Button onClick={()=>logout()}>logout</Button>
+      <Container maxWidth="sm"
       sx={{
         margin: '0 auto',
         width: '60%',
@@ -41,13 +63,14 @@ const TodoList = () => {
       }}
     >
       {todos ? <div>
+        
         <CreateTask />
         <div>{todos.map((item) => (
           <div
             
-            key={item.index}>
+            key={item.taskId}>
             <Alert
-              severity={item.isDone = false ? "success" : "error"}
+              severity={item.isDone != false ? "success" : "error"}
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -58,8 +81,8 @@ const TodoList = () => {
               <div style={{
                 display: 'flex',
               }}>
-                <Button><FiCheckSquare /></Button>
-                <Button onClick={() => deleteTask(item)}><FiDelete /></Button>
+                <Button onClick = {()=>updateTask(item)}><FiCheckSquare /></Button>
+                <Button onClick={() => deleteTask(item.taskId)}><FiDelete /></Button>
               </div>
             </Alert>
           </div>
@@ -68,6 +91,8 @@ const TodoList = () => {
       </div>
         : <CreateTask />}
 
-    </Container >)
+    </Container >
+    </div>
+  )
 }
 export default TodoList;

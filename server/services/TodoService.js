@@ -12,7 +12,7 @@ class TodoService {
 
   }
   async deleteTask(task) {
-    console.log(task)
+   
     return await Todo.deleteOne(task)
   }
 }

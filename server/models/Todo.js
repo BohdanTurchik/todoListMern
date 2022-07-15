@@ -9,10 +9,13 @@ const todo = new Schema({
   },
   isDone: {
     type:mongoose.SchemaTypes.Boolean,
-    
+   
+  },
+  taskId:{
   },
   id:{
-   type: mongoose.SchemaTypes.ObjectId
+   type: mongoose.SchemaTypes.ObjectId,
+   unique:true
   },
   
 },

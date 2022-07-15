@@ -34,7 +34,6 @@ class AuthController {
 
       const hashedPassword = await bcrypt.hash(password, 12);
 
-
       const user = new User({ email, password: hashedPassword })
       await authService.create(user)
 
@@ -79,8 +78,9 @@ class AuthController {
     } catch (e) {
       res.status(500).json({ message: "try something wrong again" })
     }
-
-
+  }
+  async logout(req,res){
+    res.cookie("token", "").send()
   }
 
 }

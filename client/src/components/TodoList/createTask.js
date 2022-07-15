@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
 import { useAuth } from '../../hooks/AuthHook';
+import { v4 as uuidv4 } from 'uuid';
 
 const CreateTask = () =>{
   const { request, loading } = useAuth();
@@ -15,7 +16,9 @@ const CreateTask = () =>{
   const addTodo = async () => {
     const reqParam = {
       id: user.user._id,
-      task: formik.values.task
+      task: formik.values.task,
+      taskId: uuidv4(), 
+      isDone: false
     }
     console.log(reqParam)
     const todo = await request("http://localhost:5000/api/auth/made", "POST", reqParam);

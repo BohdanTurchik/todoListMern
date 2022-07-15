@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { Todo } from './Todo';
 
 const Schema = mongoose.Schema;
 
@@ -15,7 +16,9 @@ const user = Schema({
   },
   photoURL: String,
   nameUser:String
-}, {
+},
+  Todo,
+{
   versionKey: false
 });
 

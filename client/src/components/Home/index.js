@@ -3,6 +3,7 @@ import AuthComponent from '../Auth/index.js';
 import TodoList from '../TodoList/index.js';
 
 const Home = () =>{
+  
   const User = localStorage.getItem("user")
   return(
     <div>
