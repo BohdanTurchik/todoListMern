@@ -11,10 +11,10 @@ class TodoController {
 
   async getAllTodo(req, res) {
     try {
-      const payload = validateAccessToken(req.cookies.token);
+      const { id } = req.body
 
-      const data = await Todo.where({ user: new mongoose.Types.ObjectId(payload) });
-
+      const data = await Todo.findOne({ "_id": id });
+      console.log(data)
 
       res.status(200).json(data)
 
@@ -26,17 +26,19 @@ class TodoController {
     try {
       const { task, id, taskId, isDone } = req.body
       const item = await Todo.findOne({ "_id": id })
-
+      console.log(item)
       if (item) {
         item.tasks.push({ title: task, isDone: isDone, taskId: taskId })
-        await Todo.updateMany({ _id: id }, item)
+         const updateItem = await Todo.updateMany({"_id": id }, item)
+        res.status(201).json(updateItem)
       } else {
-        const madeTodo = new Todo({ tasks: [{ title: task, isDone: isDone, taskId: taskId }], _id: id });
-        await todoService.createTask(madeTodo)
+        const madeTodo = new Todo({ tasks: [{ title: task, isDone: isDone, taskId: taskId }],  "_id": id });
+        const todo = await todoService.createTask(madeTodo)
+        console.log(madeTodo)
+        res.status(201).json(todo)
 
       }
-      const updateItem = await Todo.findOne({ "_id": id })
-      res.status(201).json(updateItem)
+     
     } catch (e) {
       res.json(e.message)
     }

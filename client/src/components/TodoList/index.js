@@ -14,9 +14,12 @@ const TodoList = () => {
 
   useEffect(() => {
     const getTodos = async () => {
-      const data = await request("http://localhost:5000/api/auth/todos", "GET")
-      setTodos(data[0].tasks)
-      console.log(data[0].tasks)
+      const reqParam={
+        id: user.user._id
+      }
+      const data = await request("http://localhost:5000/api/auth/todos", "POST", reqParam)
+      setTodos(data.tasks)
+      console.log(data)
     }
     getTodos()
   }, [])
@@ -42,7 +45,7 @@ const TodoList = () => {
   }
   const logout =  async()=>{
     localStorage.clear()
-    await request ("http://localhost:5000/api/auth/logout", "POST")
+    // await request ("http://localhost:5000/api/auth/logout", "POST")
   }
 
   return (
